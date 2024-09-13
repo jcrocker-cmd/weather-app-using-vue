@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CityView from '../views/CityView.vue'
+import { document } from 'postcss';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,15 +9,31 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: "WeatherHome",
+      },
     },
     {
       //Route with Params
       path: '/weather/:state/:city',
       name: 'cityView',
-      component: CityView
+      component: CityView,
+      meta: {
+        title: "WeatherView",
+      },
     },
   ]
-})
+});
 
-export default router
+// Title
+router.beforeEach((to, from, next) => {
+  document.title = `${
+    to.params.state
+      ? `${to.params.city}, ${to.params.state}`
+      : to.meta.title
+  } | The Local Weather`;
+  next();
+});
+
+export default router;
