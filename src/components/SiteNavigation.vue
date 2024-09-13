@@ -4,7 +4,7 @@
             <RouterLink :to="{ name: 'home'}">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-sun text-2xl"></i>
-                    <p class="text-2xl">The Local Weather</p>
+                    <p class="text-2xl">Weather-Weather</p>
                 </div>
             </RouterLink>
 
@@ -86,6 +86,7 @@
         );
         let query = Object.assign({}, route.query);
         delete query.preview;
+        query.id = locationObj.id;
         router.replace({query});
     };
 
